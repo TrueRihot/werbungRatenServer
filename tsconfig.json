@@ -4,9 +4,11 @@
       "noEmitOnError": true,
       "removeComments": false,
       "sourceMap": true,
-      "target": "es5",
+      "target": "es6",
       "outDir": "dist",
       "esModuleInterop": true,
+      "module": "commonjs",
+      "moduleResolution": "node"
     },
     "include": [
       "*.ts"

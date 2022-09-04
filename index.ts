@@ -1,7 +1,3 @@
-import {createServer} from "http";
-import { Server } from "socket.io";
-import express from "express";
-import * as cors from "cors";
+import WerbungServer from "./server/server.class";
 
-
-const app = express();
+const server = new WerbungServer();
