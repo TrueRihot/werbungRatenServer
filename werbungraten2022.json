@@ -1,0 +1,15 @@
+{
+    "questions": [
+        {
+        "question": "Test Question",
+        "answer": "Test Answer",
+        "videoPath": "",
+        "proof":
+            {
+            "type": "picture",
+            "path": "/picturePath",
+            "timeStamp": [4.5 , 10]
+            }
+        } 
+    ]
+}

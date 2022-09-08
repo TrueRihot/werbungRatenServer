@@ -5,11 +5,15 @@ import cors from 'cors';
 import path from "path";
 import {IoHandlerClass} from "./ioHandler.class";
 
+import Game from "./game/game.class";
+
 export default class WerbungServer {
     config = undefined;
     app:Express = undefined;
     server:Server = undefined;
     io: IoHandlerClass = undefined;
+
+    public game: Game;
 
     constructor() {
         console.log('Loading Config');
@@ -18,10 +22,16 @@ export default class WerbungServer {
             if (err) throw err;
             // @ts-ignore
             this.config = JSON.parse(data);
-            console.log('Config Loaded');
 
+            console.log('Config Loaded' + '\n');
+
+            this.setupGameBackend();
             this.bootServer();
         });
+    }
+
+    setupGameBackend() {
+        this.game = new Game();
     }
 
     bootServer() {
@@ -41,7 +51,7 @@ export default class WerbungServer {
         });
 
         this.server.listen(this.config.port, () => {
-            console.log(`Server up and running! Listening on  http://localhost:${this.config.port}`);
+            console.log(`Server up and running! Listening on  http://localhost:${this.config.port}` + '\n');
         });
     }
 }

@@ -1,3 +1,3 @@
 import WerbungServer from "./server/server.class";
 
-const server = new WerbungServer();
+export const ServerInstance = new WerbungServer();
