@@ -1,12 +1,15 @@
 import { Namespace } from "socket.io";
+import Game from "../game/game.class";
 
 export default class GeneralNameSpace {
     namespace: Namespace;
     name: string;
+    game: Game;
     
-    constructor(nameSpace: Namespace, name: string){
+    constructor(nameSpace: Namespace, name: string, game: Game){
         this.namespace = nameSpace;
         this.name = name;
+        this.game = game;
 
         this.setUpListeningFunctions();
     }

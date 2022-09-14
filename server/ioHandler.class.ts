@@ -3,14 +3,18 @@ import {Server as HttpServer} from "http";
 import UserNameSpace from "./ioNamespaces/userSpace.class";
 import AdminNameSpace from "./ioNamespaces/adminSpace.class";
 import ViewNameSpace from "./ioNamespaces/viewSpace.class";
+import {ServerInstance} from "../index";
+import Game from "./game/game.class";
 
 export class IoHandlerClass {
     server: HttpServer;
+    game: Game;
     io: Server;
     user: any;
     admin: any;
     view: any;
     constructor(server) {
+        this.game = ServerInstance.game;
         this.server = server;
         this.bootIoServer();
     }
@@ -25,19 +29,9 @@ export class IoHandlerClass {
             }
         });
 
-        this.io.on('login', socket => {
-            console.log('test')
-        });
-
-
-        this.user = new UserNameSpace(this.io.of("/user"), 'user');
-        this.admin = new AdminNameSpace(this.io.of("/admin"), 'admin');
-        this.view = new ViewNameSpace(this.io.of("/view"), 'view');
-
-
-        this.io.on("connection", socket => {
-            console.log('connection')
-        });
+        this.user = new UserNameSpace(this.io.of("/user"), 'user', this.game);
+        this.admin = new AdminNameSpace(this.io.of("/admin"), 'admin', this.game);
+        this.view = new ViewNameSpace(this.io.of("/view"), 'view', this.game);
         console.log('Io handlers established' + '\n');
     }
 }

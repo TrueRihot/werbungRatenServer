@@ -36,6 +36,7 @@ export default class Game {
             // @ts-ignore
             this.config = JSON.parse(data);
             console.log('Game config loaded, loading questions' + '\n');
+            this.setupGameState();
             this.loadQuestions(this.config.gameFiles);
         });
     }
@@ -70,10 +71,12 @@ export default class Game {
         name: string,
         socket: Socket,
         emoji: string,
-        color: string)
+        color: string): 'success' | 'failure'
         {
+            if(this.getTeamByName(name)) return 'failure';
             const id = this.gameState.players.length;
             this.gameState.players.push(new Team(name, socket,  emoji, color, id));
+            return "success";
         }
     
     getTeamById(id:number): Team | undefined{
@@ -83,6 +86,11 @@ export default class Game {
 
     getTeamBySocketId(id: string): Team | undefined {
         const teamToGet = this.gameState.players.find(elem => elem.socket.id === id);
+        return teamToGet;
+    }
+
+    getTeamByName(name: string): Team | undefined{
+        const teamToGet = this.gameState.players.find(elem => elem.name === name);
         return teamToGet;
     }
     
