@@ -11,8 +11,10 @@ export default class UserNameSpace extends GeneralNameSpace {
     }
     setupNamespace(){
         this.namespace.on("connection", (socket: any) => {
-
+            console.log('user')
+            socket.emit('hey');
             socket.on('login', (data) => {
+                console.log('tes2t')
                 const registration = this.game.registerTeam(data.name, socket, data.emoji, data.color);
                 if(registration === 'failure'){
                     socket.emit('registration:failure');
@@ -20,7 +22,6 @@ export default class UserNameSpace extends GeneralNameSpace {
                 else{
                     socket.emit('registration:success');
                     console.log('Teamregistration successfull');
-                    
                 }
             });
 

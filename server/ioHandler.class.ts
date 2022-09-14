@@ -28,10 +28,12 @@ export class IoHandlerClass {
                 methods: ["GET", "POST"]
             }
         });
-
         this.user = new UserNameSpace(this.io.of("/user"), 'user', this.game);
         this.admin = new AdminNameSpace(this.io.of("/admin"), 'admin', this.game);
         this.view = new ViewNameSpace(this.io.of("/view"), 'view', this.game);
+        this.io.on('connect', socket => {
+            socket.emit('hey')
+        });
         console.log('Io handlers established' + '\n');
     }
 }

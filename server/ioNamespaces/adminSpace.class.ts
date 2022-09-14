@@ -12,7 +12,7 @@ export default class AdminNameSpace extends GeneralNameSpace {
     setupNamespace() {
        this.namespace.on('connect', (socket:Socket) => {
         socket.on('login', data => {
-            
+            console.log('login admin')
         });
        });
     }
