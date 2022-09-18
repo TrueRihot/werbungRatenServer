@@ -1,5 +1,7 @@
 {
     "timer": 30,
-    "gameFiles": "werbungraten2022.json"
+    "gameFiles": "werbungraten2022.json",
+    "userKey": "Herbstlager",
+    "adminKey": "Phlippers"
 }
   
