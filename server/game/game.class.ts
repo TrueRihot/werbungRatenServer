@@ -71,9 +71,9 @@ export default class Game {
         name: string,
         socket: Socket,
         emoji: string,
-        color: string): 'success' | 'failure'
+        color: string): 'success' | 'falseteamname'
         {
-            if(this.getTeamByName(name)) return 'failure';
+            if(this.getTeamByName(name)) return 'falseteamname';
             const id = this.gameState.players.length;
             this.gameState.players.push(new Team(name, socket,  emoji, color, id));
             return "success";
