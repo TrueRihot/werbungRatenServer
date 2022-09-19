@@ -40,12 +40,12 @@ export default class UserNameSpace extends GeneralNameSpace {
              */
             socket.emit("emoji:pick", this.emojiList);
 
-
             /**
              * Login Fnc to validate regisrations of players
              *
              */
             socket.on('login', (data) => {
+                data = data.payload;
                 const registration = this.game.registerTeam(data.name, socket, data.emoji, data.color);
                 if(registration !== 'success'){
                     socket.emit('registration:failure', registration);
