@@ -28,7 +28,7 @@ export default class Game {
     config;
     questions;
     gameState: gameState;
-    answers: answer[][];
+    answers: answer[][] = [];
 
     private clock;
     public clockEmitter: Subject<number> = new Subject<number>();
@@ -62,6 +62,7 @@ export default class Game {
             const rawQuestions = JSON.parse(data);
            
             this.questions = rawQuestions.questions.map((question, index) => {
+                this.answers.push([]);
                 return {...question , id: index, answers: []};
             });
             console.log('Questions loaded successfully' + '\n');       
@@ -175,7 +176,7 @@ export default class Game {
         const currentQuestion = this.gameState.questionState.currentQuestion;
         if(!this.gameState.questionState.questionShown) return false;
         if(this.answers[currentQuestion].find(element => element.socketId === socketId)) return false;
-        if(this.gameState.questionState.currentTimer >= 0) return false;
+        if(this.gameState.questionState.currentTimer <= 0) return false;
 
         this.answers[currentQuestion].push(
             {

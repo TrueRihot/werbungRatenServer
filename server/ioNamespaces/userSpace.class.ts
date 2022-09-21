@@ -84,8 +84,12 @@ export default class UserNameSpace extends GeneralNameSpace {
 
                 if (hasGiven) {
                     socket.emit("user:answerAccepted");
+                    console.log("anser accepted");
+                    
                 }else {
-                    socket.emit("user:answerFailed")
+                    socket.emit("user:answerFailed");
+                    console.log("anser declined");
+
                 }
             });
 
