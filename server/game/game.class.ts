@@ -1,6 +1,9 @@
 import Team from "./team.class"
 import fs from "fs";
 import { Socket } from "socket.io";
+import EventEmitter from "events";
+import {NodeCompatibleEventEmitter} from "rxjs/internal/observable/fromEvent";
+import {Subject} from "rxjs";
 
 export interface gameState {
         players: Team[],
@@ -26,7 +29,18 @@ export default class Game {
     questions;
     gameState: gameState;
     answers: answer[][];
-    clock;
+
+    private clock;
+    public clockEmitter: Subject<number> = new Subject<number>();
+    public newAnswer: Subject<any> = new Subject<any>();
+    public questionChanged: Subject<
+        {
+        currentQuestion: number,
+        questionShown: boolean,
+        currentTimer: number
+        }
+    > = new Subject();
+    public newTeam: Subject<Team> = new Subject<Team>();
 
     constructor(){
         console.log('Setting up the Game backend');
@@ -75,7 +89,9 @@ export default class Game {
         {
             if(this.getTeamByName(name)) return 'falseteamname';
             const id = this.gameState.players.length;
-            this.gameState.players.push(new Team(name, socket,  emoji, color, id));
+            const newTeamInstance = new Team(name, socket,  emoji, color, id)
+            this.gameState.players.push(newTeamInstance);
+            this.newTeam.next(newTeamInstance);
             return "success";
         }
     
@@ -112,15 +128,47 @@ export default class Game {
 
     tick() {
         const newTick = this.gameState.questionState.currentTimer -1;
+        this.gameState.questionState.currentTimer = newTick;
         console.log('QuestionTick ' + newTick + "/n");
-        
+        this.clockEmitter.next(newTick);
+
         if (newTick >= 0){
             this.stopTimer();
         }
     }
 
+    switchQuestionTo(val: 'next' | 'prev') {
+        const current = this.gameState.questionState.currentQuestion;
+        let next;
+        switch (val) {
+            case 'next':
+                next = this.gameState.questionState.currentQuestion++;
+                break;
+            case "prev":
+                next = this.gameState.questionState.currentQuestion--;
+                break;
+            default:
+                break;
+        }
+        next = this.clampValidQuestion(next);
+        this.gameState.questionState.currentQuestion = next !== current ? next : current;
+        if (next !== current) {
+            this.gameState.questionState.questionShown = false;
+        }
+        this.questionChanged.next(this.gameState.questionState);
+    }
+
+    clampValidQuestion(num) {
+        return num <= 0
+            ? 0
+            : num >= this.questions.length - 1
+                ? this.questions.length - 1
+                : num
+    }
+
     toggleQuestionVisibility(shouldBeVisible?: boolean){
         this.gameState.questionState.questionShown = shouldBeVisible ? shouldBeVisible : !this.gameState.questionState.questionShown;
+        this.questionChanged.next(this.gameState.questionState);
     }
 
     giveAnswer(socketId: string, answer: string): boolean{
@@ -138,6 +186,11 @@ export default class Game {
                 socketId
         }
         );
+        this.newAnswer.next('new Answer');
         return true;
+    }
+
+    getCurrentQuestion() {
+        return this.questions[this.gameState.questionState.currentQuestion];
     }
 }

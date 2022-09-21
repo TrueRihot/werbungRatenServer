@@ -11,10 +11,19 @@ export default class AdminNameSpace extends GeneralNameSpace {
     }
     setupNamespace() {
        this.namespace.on('connect', (socket:Socket) => {
-        socket.emit('hey')
         socket.on('login', data => {
-            console.log('login admin')
         });
+
+        socket.on('admin:switchQuestion', data => {
+            data = data.payload;
+            if (!data.direction) return;
+            this.game.switchQuestionTo(data.direction);
+        });
+
+        socket.on('admin:toggleVisibility', () => {
+            this.game.toggleQuestionVisibility();
+        });
+
        });
     }
 

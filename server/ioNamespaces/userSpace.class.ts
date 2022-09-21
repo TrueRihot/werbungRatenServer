@@ -78,6 +78,22 @@ export default class UserNameSpace extends GeneralNameSpace {
                 }
             });
 
+            socket.on("user:answer", data => {
+                data = data.payload;
+                const hasGiven = this.game.giveAnswer(socket.id, data.answer);
+
+                if (hasGiven) {
+                    socket.emit("user:answerAccepted");
+                }else {
+                    socket.emit("user:answerFailed")
+                }
+            });
+
+            socket.on('user:animation', data => {
+                // TODO: implement a funny animation in the view portion of our app
+                console.log('trigger funny animation in view')
+            });
+
 
             /*
                 Disconnect function!!!
