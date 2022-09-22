@@ -33,6 +33,9 @@ export default class GeneralNameSpace {
     emitCurrentQuestion(socket: Socket) {
         const question = this.game.getCurrentQuestion();
         let fullQuestionData = {...this.game.gameState.questionState, question: question.question, shown: question.questionShown};
+        if (this.name === "/admin") {
+            fullQuestionData = {...fullQuestionData, ...question}
+        }
         socket.emit('questionChanged', fullQuestionData);
     }
 }
