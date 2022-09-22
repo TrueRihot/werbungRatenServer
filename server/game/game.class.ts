@@ -24,9 +24,21 @@ export interface answer{
     socketId: string
 };
 
+export interface question {
+    question: string,
+    answer: string,
+    videoPath: string,
+    proof:
+        {
+            type: 'picture' | 'video',
+            path : string,
+            timeStamp: number[]
+        }
+}
+
 export default class Game {
     config;
-    questions;
+    questions: question[] = [];
     gameState: gameState;
     answers: answer[][] = [];
 

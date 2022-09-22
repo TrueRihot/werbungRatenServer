@@ -27,13 +27,18 @@ export default class GeneralNameSpace {
             this.game.questionChanged.subscribe(res => {
                 this.emitCurrentQuestion(socket);
             });
+
+            socket.on('all:getCurrent', () => {
+               this.emitCurrentQuestion(socket);
+            });
         });
     }
 
     emitCurrentQuestion(socket: Socket) {
         const question = this.game.getCurrentQuestion();
-        let fullQuestionData = {...this.game.gameState.questionState, question: question.question, shown: question.questionShown};
-        if (this.name === "/admin") {
+        let fullQuestionData = {...this.game.gameState.questionState, question: question.question, shown: this.game.gameState.questionState.questionShown};
+        console.log(this.name)
+        if (this.name === "admin") {
             fullQuestionData = {...fullQuestionData, ...question}
         }
         socket.emit('questionChanged', fullQuestionData);
