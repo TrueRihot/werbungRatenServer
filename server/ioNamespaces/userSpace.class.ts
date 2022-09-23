@@ -46,7 +46,7 @@ export default class UserNameSpace extends GeneralNameSpace {
              */
             socket.on('login', (data) => {
                 data = data.payload;
-                const registration = this.game.registerTeam(data.name, socket, data.emoji, data.color);
+                const registration = this.game.registerTeam(data.name, socket, data.emoji, data.color, data.password);
                 if(registration !== 'success'){
                     socket.emit('registration:failure', registration);
                 }
@@ -90,6 +90,20 @@ export default class UserNameSpace extends GeneralNameSpace {
                     socket.emit("user:answerFailed");
                     console.log("anser declined");
 
+                }
+            });
+
+            socket.on('checkLogin', data => {
+                data = data.payload;
+                const team = this.game.getTeamByName(data.name);
+                console.log(team)
+                if (team && team.password === data.password) {
+                    console.log('test')
+                    this.game.updateTeam(team, socket.id);
+                    socket.emit('checkLogin', true)
+                }
+                else {
+                    socket.emit('checkLogin', false)
                 }
             });
 

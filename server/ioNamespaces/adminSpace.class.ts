@@ -2,6 +2,7 @@ import GeneralNameSpace from "./generalSpace.class";
 import { Namespace, Socket } from "socket.io";
 import Game from "../game/game.class";
 import fs from "fs";
+import Team from "../game/team.class";
 
 
 export default class AdminNameSpace extends GeneralNameSpace {
@@ -25,6 +26,7 @@ export default class AdminNameSpace extends GeneralNameSpace {
             if (data.password === this.key) {
                 socket.emit('connection:success', {key: this.game.config.key});
                 this.emitCurrentQuestion(socket);
+                this.emitTeams(socket);
             }else {
                 socket.emit('registration:failure');
             }
@@ -36,8 +38,22 @@ export default class AdminNameSpace extends GeneralNameSpace {
             this.game.switchQuestionTo(data.direction);
         });
 
+        socket.on('admin:switchAnswer', data => {
+           data = data.payload;
+           this.game.changeAnswer(data);
+           this.emitCurrentQuestion(socket);
+        });
+
         socket.on('admin:toggleVisibility', () => {
             this.game.toggleQuestionVisibility();
+        });
+
+        this.game.newAnswer.subscribe(() => {
+           this.emitCurrentQuestion(socket);
+        });
+
+        this.game.newTeam.subscribe(() => {
+           this.emitTeams(socket);
         });
 
        });
@@ -46,5 +62,20 @@ export default class AdminNameSpace extends GeneralNameSpace {
     isAllowed(data): boolean{
         return true;
     }
-    
+
+    private emitTeams(socket: Socket) {
+        const teamsArray = [];
+        const buildTeam = (team: Team) => {
+            teamsArray.push({
+                name: team.name,
+                socketId: team.socket.id,
+                emoji: team.emoji,
+                color: team.color,
+                id: team.id
+            })
+        };
+        console.log(this.game.gameState.players)
+        this.game.gameState.players.forEach(buildTeam)
+        socket.emit('admin:teams', teamsArray)
+    }
 }

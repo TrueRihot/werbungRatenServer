@@ -36,10 +36,15 @@ export default class GeneralNameSpace {
 
     emitCurrentQuestion(socket: Socket) {
         const question = this.game.getCurrentQuestion();
-        let fullQuestionData = {...this.game.gameState.questionState, question: question.question, shown: this.game.gameState.questionState.questionShown};
-        console.log(this.name)
+        let fullQuestionData = {...this.game.gameState.questionState,
+                                question: question.question,
+                                shown: this.game.gameState.questionState.questionShown
+                                };
         if (this.name === "admin") {
-            fullQuestionData = {...fullQuestionData, ...question}
+            const answers= {
+                answers: this.game.answers[this.game.gameState.questionState.currentQuestion]
+            }
+            fullQuestionData = {...fullQuestionData, ...question, ...answers}
         }
         socket.emit('questionChanged', fullQuestionData);
     }

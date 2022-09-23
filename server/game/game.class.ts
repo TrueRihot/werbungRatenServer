@@ -18,6 +18,7 @@ export interface gameState {
 
 export interface answer{
     questionId: number,
+    teamName: string,
     answer: string,
     time: number,
     correct: boolean,
@@ -40,7 +41,7 @@ export default class Game {
     config;
     questions: question[] = [];
     gameState: gameState;
-    answers: answer[][] = [];
+    answers: answer[][] = [[{answer: 'test',correct: false,time: 30, socketId: '123',questionId: 0, teamName:'test'}]];
 
     private clock;
     public clockEmitter: Subject<number> = new Subject<number>();
@@ -88,7 +89,7 @@ export default class Game {
             views: [],
             questionState: {
                 currentQuestion: 0,
-                questionShown: false,
+                questionShown: true,
                 currentTimer: this.config.timer
             }
         }
@@ -98,11 +99,12 @@ export default class Game {
         name: string,
         socket: Socket,
         emoji: string,
-        color: string): 'success' | 'falseteamname'
+        color: string,
+        password: string): 'success' | 'falseteamname'
         {
             if(this.getTeamByName(name)) return 'falseteamname';
             const id = this.gameState.players.length;
-            const newTeamInstance = new Team(name, socket,  emoji, color, id)
+            const newTeamInstance = new Team(name, socket,  emoji, color, id,password)
             this.gameState.players.push(newTeamInstance);
             this.newTeam.next(newTeamInstance);
             return "success";
@@ -155,10 +157,10 @@ export default class Game {
         let next;
         switch (val) {
             case 'next':
-                next = this.gameState.questionState.currentQuestion++;
+                next = this.gameState.questionState.currentQuestion + 1;
                 break;
             case "prev":
-                next = this.gameState.questionState.currentQuestion--;
+                next = this.gameState.questionState.currentQuestion - 1;
                 break;
             default:
                 break;
@@ -194,6 +196,7 @@ export default class Game {
             {
                 questionId: currentQuestion,
                 answer,
+                teamName: this.getTeamBySocketId(socketId).name,
                 correct: false,
                 time: this.gameState.questionState.currentTimer,
                 socketId
@@ -205,5 +208,21 @@ export default class Game {
 
     getCurrentQuestion() {
         return this.questions[this.gameState.questionState.currentQuestion];
+    }
+
+    changeAnswer(data: {socketId: string, currentQuestion: number}) {
+        const el = this.answers[data.currentQuestion]?.find(el => el.socketId === data.socketId);
+        if (!el) return
+        el.correct = !el.correct;
+    }
+
+    updateTeam(team: Team, socket: Socket) {
+        this.answers.forEach(answerarray => {
+            answerarray.forEach(answer => {
+               answer.socketId = answer.socketId === team.socket.id ? socket.id : answer.socketId;
+            })
+        })
+        team.socket = socket;
+        this.newTeam.next(team);
     }
 }

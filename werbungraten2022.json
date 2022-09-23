@@ -10,6 +10,17 @@
             "path": "/picturePath",
             "timeStamp": [4.5 , 10]
             }
-        } 
+        } ,
+        {
+            "question": "Test Question2",
+            "answer": "Test Answer2",
+            "videoPath": "",
+            "proof":
+            {
+                "type": "picture",
+                "path": "/picturePath",
+                "timeStamp": [4.5 , 10]
+            }
+        }
     ]
 }

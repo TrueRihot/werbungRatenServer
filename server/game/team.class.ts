@@ -8,6 +8,7 @@ export default class Team {
     emoji: string;
     color: string;
     id: number;
+    password: string;
 
     game: Game;
 
@@ -16,12 +17,14 @@ export default class Team {
         socket: Socket,
         emoji: string,
         color: string,
-        id: number) {
+        id: number,
+        password: string) {
         this.name = name;
         this.socket = socket;
         this.emoji = emoji;
         this.color = color;
         this.id = id
+        this.password = password;
     }
 
     updateSocket(newSocket: Socket) {
