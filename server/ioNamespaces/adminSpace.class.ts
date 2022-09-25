@@ -48,6 +48,10 @@ export default class AdminNameSpace extends GeneralNameSpace {
             this.game.toggleQuestionVisibility();
         });
 
+        socket.on('admin:playPause', () => {
+           this.game.playPauseVideo.next('playPause');
+        });
+
         this.game.newAnswer.subscribe(() => {
            this.emitCurrentQuestion(socket);
         });

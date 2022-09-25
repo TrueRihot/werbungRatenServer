@@ -45,7 +45,10 @@ export default class Game {
 
     private clock;
     public clockEmitter: Subject<number> = new Subject<number>();
+    public showAnswer: Subject<boolean> = new Subject<boolean>();
+    public playPauseVideo: Subject<any> = new Subject<any>();
     public newAnswer: Subject<any> = new Subject<any>();
+    public timerStopped: Subject<any> = new Subject<any>()
     public questionChanged: Subject<
         {
         currentQuestion: number,
@@ -89,7 +92,7 @@ export default class Game {
             views: [],
             questionState: {
                 currentQuestion: 0,
-                questionShown: true,
+                questionShown: false,
                 currentTimer: this.config.timer
             }
         }
@@ -124,10 +127,22 @@ export default class Game {
         const teamToGet = this.gameState.players.find(elem => elem.name === name);
         return teamToGet;
     }
+
+    initShowQuestion() {
+        setTimeout(() => {
+            this.gameState.questionState.questionShown = true;
+            this.questionChanged.next(
+                {currentQuestion: this.gameState.questionState.currentQuestion,
+                        questionShown: this.gameState.questionState.questionShown,
+                        currentTimer: this.gameState.questionState.currentTimer
+                })
+            this.startTimer();
+        },5000);
+    }
     
     startTimer(){
         if(this.clock) return;
-        this.clock = setInterval(this.tick, 1000);
+        this.clock = setInterval(this.tick.bind(this), 1000);
     }
 
     resetTimer(){
@@ -138,17 +153,29 @@ export default class Game {
     stopTimer(){
         if (!this.clock) return;
         clearInterval(this.clock);
+        this.gameState.questionState.questionShown = false;
         this.clock = undefined;
+        this.questionChanged.next(
+            {currentQuestion: this.gameState.questionState.currentQuestion,
+                questionShown: this.gameState.questionState.questionShown,
+                currentTimer: this.gameState.questionState.currentTimer
+            });
+        this.showAnswer.next(true);
+        this.timerStopped.next('stopped');
     }
 
     tick() {
         const newTick = this.gameState.questionState.currentTimer -1;
         this.gameState.questionState.currentTimer = newTick;
-        console.log('QuestionTick ' + newTick + "/n");
         this.clockEmitter.next(newTick);
+        this.questionChanged.next(
+            {currentQuestion: this.gameState.questionState.currentQuestion,
+                questionShown: this.gameState.questionState.questionShown,
+                currentTimer: this.gameState.questionState.currentTimer
+        });
 
-        if (newTick >= 0){
-            this.stopTimer();
+        if (newTick <= 0){
+            this.resetTimer();
         }
     }
 

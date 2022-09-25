@@ -3,12 +3,12 @@
         {
         "question": "Test Question",
         "answer": "Test Answer",
-        "videoPath": "",
+        "videoPath": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
         "proof":
             {
-            "type": "picture",
+            "type": "video",
             "path": "/picturePath",
-            "timeStamp": [4.5 , 10]
+            "timeStamp": [4 , 10]
             }
         } ,
         {

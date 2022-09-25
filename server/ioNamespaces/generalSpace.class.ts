@@ -40,7 +40,7 @@ export default class GeneralNameSpace {
                                 question: question.question,
                                 shown: this.game.gameState.questionState.questionShown
                                 };
-        if (this.name === "admin") {
+        if (this.name === "admin" || this.name === "view") {
             const answers= {
                 answers: this.game.answers[this.game.gameState.questionState.currentQuestion]
             }
