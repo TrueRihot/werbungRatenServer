@@ -219,11 +219,13 @@ export default class Game {
         if(this.answers[currentQuestion].find(element => element.socketId === socketId)) return false;
         if(this.gameState.questionState.currentTimer <= 0) return false;
 
+        const team = this.getTeamBySocketId(socketId);
+
         this.answers[currentQuestion].push(
             {
                 questionId: currentQuestion,
                 answer,
-                teamName: this.getTeamBySocketId(socketId).name,
+                teamName: team.name,
                 correct: false,
                 time: this.gameState.questionState.currentTimer,
                 socketId

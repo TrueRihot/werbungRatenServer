@@ -78,7 +78,6 @@ export default class AdminNameSpace extends GeneralNameSpace {
                 id: team.id
             })
         };
-        console.log(this.game.gameState.players)
         this.game.gameState.players.forEach(buildTeam)
         socket.emit('admin:teams', teamsArray)
     }
