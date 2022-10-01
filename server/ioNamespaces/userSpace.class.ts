@@ -96,10 +96,8 @@ export default class UserNameSpace extends GeneralNameSpace {
             socket.on('checkLogin', data => {
                 data = data.payload;
                 const team = this.game.getTeamByName(data.name);
-                console.log(team)
                 if (team && team.password === data.password) {
-                    console.log('test')
-                    this.game.updateTeam(team, socket.id);
+                    this.game.updateTeam(team, socket);
                     socket.emit('checkLogin', true)
                 }
                 else {

@@ -219,7 +219,9 @@ export default class Game {
         if(this.answers[currentQuestion].find(element => element.socketId === socketId)) return false;
         if(this.gameState.questionState.currentTimer <= 0) return false;
 
+        console.log(socketId)
         const team = this.getTeamBySocketId(socketId);
+        console.log(this.gameState.players)
 
         this.answers[currentQuestion].push(
             {
@@ -250,8 +252,12 @@ export default class Game {
             answerarray.forEach(answer => {
                answer.socketId = answer.socketId === team.socket.id ? socket.id : answer.socketId;
             })
-        })
-        team.socket = socket;
+        });
+        const player = this.gameState.players.find((e) => {
+            const name = team.name;
+            return e.name === name;
+        });
+        player.socket = socket;
         this.newTeam.next(team);
     }
 }
