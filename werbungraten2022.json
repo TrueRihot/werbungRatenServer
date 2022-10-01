@@ -1,26 +1,301 @@
 {
     "questions": [
         {
-        "question": "Test Question",
-        "answer": "Test Answer",
-        "videoPath": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+            "question": "Wie schnell ist Silverstar?",
+            "answer": "130km/h",
+            "videoPath": "/assets/videos/hansi.mp4",
+            "proof":
+                {
+                "type": "video",
+                "path": "",
+                "timeStamp": [68 , 80]
+                }
+        },
+        {
+        "question": "Welche Farbe hat das Tuch(im Hemd) des großen Mannes?",
+        "answer": "Blau",
+        "videoPath": "/assets/videos/magenta.mp4",
         "proof":
             {
-            "type": "video",
-            "path": "/picturePath",
+            "type": "picture",
+            "path": "/assets/pictures/magenta.JPG",
             "timeStamp": [4 , 10]
             }
         } ,
         {
-            "question": "Test Question2",
-            "answer": "Test Answer2",
-            "videoPath": "",
+            "question": "Wie viele Stücke Kuchen macht die Frau?",
+            "answer": "6",
+            "videoPath": "/assets/videos/oetker.mp4",
             "proof":
-            {
+                {
+                "type": "video",
+                "path": "/",
+                "timeStamp": [32 , 37]
+                }
+        },
+        {
+            "question": "Wie lautet das Kennzeichen des silbernen Golfs?",
+            "answer": "WI L 9486",
+            "videoPath": "/assets/videos/obi.mp4",
+            "proof":
+                {
                 "type": "picture",
-                "path": "/picturePath",
-                "timeStamp": [4.5 , 10]
-            }
+                "path": "/assets/pictures/obi.JPG",
+                "timeStamp": [32 , 37]
+                }
+        },
+        {
+            "question": "Welche Farben haben die Heißluftballons?",
+            "answer": "Rot und weiß",
+            "videoPath": "/assets/videos/cola.mp4",
+            "proof":
+                {
+                "type": "video",
+                "path": "",
+                "timeStamp": [68 , 72]
+                }
+        },
+        {
+            "question": "Wie viel PS hat der Traktor?",
+            "answer": "425",
+            "videoPath": "/assets/videos/edeka.mp4",
+            "proof":
+                {
+                "type": "video",
+                "path": "",
+                "timeStamp": [2 , 10]
+                }
+        },
+        {
+            "question": "Welche Frucht liegt in der Ersten Szene rechts auf dem Tisch?",
+            "answer": "Banane",
+            "videoPath": "/assets/videos/netto.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/netto.JPG",
+                "timeStamp": [2 , 10]
+                }
+        },
+        {
+            "question": "Wo gibt es den aktuellen Gutschein?",
+            "answer": "Im aktuellen Flugblatt",
+            "videoPath": "/assets/videos/netto.mp4",
+            "proof":
+                {
+                "type": "video",
+                "path": "",
+                "timeStamp": [34 , 39]
+                }
+        },
+        {
+            "question": "An welcher Zapfsäule tankt Ingo?",
+            "answer": "5",
+            "videoPath": "/assets/videos/ingo.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/ingo.JPG",
+                "timeStamp": [34 , 39]
+                }
+        },
+        {
+            "question": "Wie viele Leute sind am Tisch?(ohne die M&Ms und das Paar)",
+            "answer": "10",
+            "videoPath": "/assets/videos/mm.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/mm.JPG",
+                "timeStamp": [34 , 39]
+                }
+        },
+        {
+            "question": "Was kommt raus wenn man alle gesagten 1&1 zusammen rechnet? (Also 1+1)",
+            "answer": "8",
+            "videoPath": "/assets/videos/mm.mp4",
+            "proof":
+                {
+                "type": "video",
+                "path": "",
+                "timeStamp": [0 , 34]
+                }
+        },
+        {
+            "question": "Welche Farben haben die 3 Wasserrutschen?",
+            "answer": "Rot, Gelb, und Blau",
+            "videoPath": "/assets/videos/3words.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/3words.JPG",
+                "timeStamp": [0 , 34]
+                }
+        },
+        {
+            "question": "Was steht auf dem Buch im Regal?",
+            "answer": "Astralreisen",
+            "videoPath": "/assets/videos/dedoles.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/dedoles.JPG",
+                "timeStamp": [0 , 34]
+                }
+        },
+        {
+            "question": "Welche Zahl sieht man auf dem Aufkleber rechts in der Windschutzscheibe?",
+            "answer": "20",
+            "videoPath": "/assets/videos/allianz.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/allianz.JPG",
+                "timeStamp": [0 , 34]
+                }
+        },
+        {
+            "question": "Was hält der man im gelben Anzug in der Hand?",
+            "answer": "Funktelefon",
+            "videoPath": "/assets/videos/union.mp4",
+            "proof":
+                {
+                "type": "video",
+                "path": "",
+                "timeStamp": [0 , 9]
+                }
+        },
+        {
+            "question": "Welche Serie ist auf Platz 2 der Top Tipps?",
+            "answer": "Das Boot",
+            "videoPath": "/assets/videos/sky.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/sky.JPG",
+                "timeStamp": [0 , 9]
+                }
+        },
+        {
+            "question": "Was steht auf dem Shirt des Jungen?",
+            "answer": "Vegetarian",
+            "videoPath": "/assets/videos/brille.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/brille.JPG",
+                "timeStamp": [0 , 9]
+                }
+        },
+        {
+            "question": "Welches Tier ist auf dem Bild an der Wand?",
+            "answer": "Ente",
+            "videoPath": "/assets/videos/schlemmer.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/schlemmer.JPG",
+                "timeStamp": [0 , 9]
+                }
+        },
+        {
+            "question": "Wie viele Shops hat Idealo?",
+            "answer": "50.000",
+            "videoPath": "/assets/videos/idealo.mp4",
+            "proof":
+                {
+                "type": "video",
+                "path": "",
+                "timeStamp": [23 , 28]
+                }
+        },
+        {
+            "question": "Wie viele Fliesen wirft die Frau an die Wand?",
+            "answer": "4",
+            "videoPath": "/assets/videos/bauhaus.mp4",
+            "proof":
+                {
+                "type": "video",
+                "path": "",
+                "timeStamp": [14 , 17]
+                }
+        },
+        {
+            "question": "Was steht auf dem Klavier?",
+            "answer": "Ein Kaffee und ein Doughnut",
+            "videoPath": "/assets/videos/lieferando.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/lieferando.JPG",
+                "timeStamp": [14 , 17]
+                }
+        },
+        {
+            "question": "Wie schnell fährt der Typ als das Lenkrad wegklappt?",
+            "answer": "68-69",
+            "videoPath": "/assets/videos/audi.mp4",
+            "proof":
+                {
+                "type": "video",
+                "path": "",
+                "timeStamp": [30 , 35]
+                }
+        },
+        {
+            "question": "Was kostet eine premium Mitgliedschaft im Jahr?",
+            "answer": "(Ab) 139 Euro",
+            "videoPath": "/assets/videos/adac.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/adac.JPG",
+                "timeStamp": [30 , 35]
+                }
+        },
+        {
+            "question": "Wie viele Pfeile stecken im Auto?",
+            "answer": "4",
+            "videoPath": "/assets/videos/tuscan.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/tuscan.JPG",
+                "timeStamp": [30 , 35]
+                }
+        },
+        {
+            "question": "Welches Getränk schüttet die Frau ein?",
+            "answer": "Orangensaft",
+            "videoPath": "/assets/videos/kirsche.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/kirsche.JPG",
+                "timeStamp": [30 , 35]
+                }
+        },
+        {
+            "question": "Welche Nummer drückt der kleine Hunger auf dem Telefon?",
+            "answer": "6",
+            "videoPath": "/assets/videos/mueller.mp4",
+            "proof":
+                {
+                "type": "video",
+                "path": "",
+                "timeStamp": [9 , 14]
+                }
+        },
+        {
+            "question": "Wie viel weniger Koffein hat der Kaffee?",
+            "answer": "halb so viel (50%)",
+            "videoPath": "/assets/videos/jacobs.mp4",
+            "proof":
+                {
+                "type": "picture",
+                "path": "/assets/pictures/jacobs.JPG",
+                "timeStamp": [9 , 14]
+                }
         }
     ]
 }

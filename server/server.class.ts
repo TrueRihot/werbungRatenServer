@@ -44,7 +44,9 @@ export default class WerbungServer {
         this.app.use('/server', express.static('server'));
         this.server = createServer(this.app);
 
-        this.io = new IoHandlerClass(this.server);
+        this.io = new IoHandlerClass(this.server); 
+
+        this.app.use(express.static('server/static'))
 
         this.app.use('/',(req, res) => {
             res.sendFile(path.join(__dirname, '/werbung-raten-ui', 'index.html'));

@@ -41,7 +41,7 @@ export default class Game {
     config;
     questions: question[] = [];
     gameState: gameState;
-    answers: answer[][] = [[{answer: 'test',correct: false,time: 30, socketId: '123',questionId: 0, teamName:'test'}]];
+    answers: answer[][] = [];
 
     private clock;
     public clockEmitter: Subject<number> = new Subject<number>();
@@ -81,7 +81,7 @@ export default class Game {
                 this.answers.push([]);
                 return {...question , id: index, answers: []};
             });
-            console.log('Questions loaded successfully' + '\n');       
+            console.log(this.questions.length  + ' Questions loaded successfully' + '\n');       
         });
     }
 
@@ -259,5 +259,12 @@ export default class Game {
         });
         player.socket = socket;
         this.newTeam.next(team);
+    }
+
+    save() {
+        let data = JSON.stringify(this.answers);
+        console.log('saving');
+        
+        fs.writeFileSync('answers.json', data);
     }
 }

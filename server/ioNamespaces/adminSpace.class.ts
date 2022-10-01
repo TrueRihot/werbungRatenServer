@@ -52,6 +52,10 @@ export default class AdminNameSpace extends GeneralNameSpace {
            this.game.playPauseVideo.next('playPause');
         });
 
+        socket.on('admin:save', () => {
+            this.game.save();
+        });
+
         this.game.newAnswer.subscribe(() => {
            this.emitCurrentQuestion(socket);
         });
