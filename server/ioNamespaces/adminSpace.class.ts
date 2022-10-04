@@ -56,6 +56,10 @@ export default class AdminNameSpace extends GeneralNameSpace {
             this.game.save();
         });
 
+        socket.on('admin:results', () => {
+           this.game.showResults.next('result');
+        });
+
         this.game.newAnswer.subscribe(() => {
            this.emitCurrentQuestion(socket);
         });

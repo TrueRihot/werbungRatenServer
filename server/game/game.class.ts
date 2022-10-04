@@ -41,7 +41,7 @@ export default class Game {
     config;
     questions: question[] = [];
     gameState: gameState;
-    answers: answer[][] = [];
+    answers: answer[][] = [[{time: 0, answer: "asd", correct: true, teamName:"test", socketId: 'adasd', questionId: 0}]];
 
     private clock;
     public clockEmitter: Subject<number> = new Subject<number>();
@@ -57,6 +57,9 @@ export default class Game {
         }
     > = new Subject();
     public newTeam: Subject<Team> = new Subject<Team>();
+    public showResults: Subject<any> = new Subject();
+    public triggerAnimation: Subject<{color:string, emoji:string}> = new Subject<{color: string; emoji: string}>();
+
 
     constructor(){
         console.log('Setting up the Game backend');
@@ -266,5 +269,22 @@ export default class Game {
         console.log('saving');
         
         fs.writeFileSync('answers.json', data);
+    }
+
+    getResults() {
+        const results = {};
+        this.gameState.players.forEach(team => {
+            results[team.name] = 0;
+            this.answers.forEach(answers => {
+                answers.forEach(answer => {
+                    if (answer.teamName === team.name && answer.correct) {
+                        results[team.name] += answer.time;
+                    };
+                });
+            })
+        });
+
+        console.log(results)
+        return results;
     }
 }

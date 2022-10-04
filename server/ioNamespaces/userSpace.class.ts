@@ -106,9 +106,9 @@ export default class UserNameSpace extends GeneralNameSpace {
             });
 
             socket.on('user:animation', data => {
-                // TODO: implement a funny animation in the view portion of our app
-                console.log('trigger funny animation in view')
-            });
+                    this.game.triggerAnimation.next(data);
+                }
+            );
 
 
             /*
